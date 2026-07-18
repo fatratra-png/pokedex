@@ -4,14 +4,14 @@ import SearchBar from "../components/SearchBar";
 import PokemonList from "../components/PokemonList";
 
 export default function HomePage() {
-  const { pokemons, loading, error, hasMore, onLoadMore } = usePokemonList();
+  const { pokemon, loading, error, hasMore, loadMore } = usePokemonList();
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
-    if (!query.trim()) return pokemons;
-    return pokemons.filter((p) =>
+    if (!query.trim()) return pokemon;
+    return pokemon.filter((p) =>
       p.name.toLowerCase().includes(query.toLowerCase()),
     );
-  }, [pokemons, query]);
+  }, [pokemon, query]);
 
   return (
     <div className="screen">
@@ -25,7 +25,7 @@ export default function HomePage() {
         loading={loading}
         error={error}
         hasMore={hasMore}
-        onLoadMore={onLoadMore}
+        onLoadMore={loadMore}
         isFiltering={!!query.trim().length > 0}
       />
     </div>

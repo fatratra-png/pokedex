@@ -11,7 +11,7 @@ export default function App() {
           className="device_light device_light--yellow"
           aria-hidden="true"
         />
-        <span className="device_light deivce_light--green" aria-hidden="true" />
+        <span className="device_light device_light--green" aria-hidden="true" />
         <h1 className="device_title">Pokedex</h1>
       </div>
 
