@@ -24,7 +24,10 @@ export async function fetchPokemonSpecies(pokemonName){
       const data = await response.json();
       const entry = data.flavor_text_entries.find((e)=>e.language.name === 'fr') ||
             data.flavor_text_entries.find((e)=>e.language.name === 'en');
-      return entry ? entry.flavor_text.replace(/\f|n/g, ' ') : '';
+      // FIX: only strip form-feed (\f) and newlines (\n), NOT every "n" letter.
+      // The previous regex /\f|n/g matched plain "n" and deleted all of them,
+      // which is why the description hid every letter "n".
+      return entry ? entry.flavor_text.replace(/[\f\n]/g, ' ') : '';
 }
 
 export async function fetchPokemonEvolutionChain(pokemonName){

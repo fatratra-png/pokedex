@@ -461,6 +461,21 @@ body {
   }
 }
 
+/* ---------- PC / large desktop screens ---------- */
+@media (min-width: 1024px) {
+  .device {
+    /* FIX: use the extra horizontal space on full PC screens */
+    max-width: min(1080px, 100%);
+  }
+  .poke-grid {
+    /* bigger cards, more columns on wide displays */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  .screen {
+    min-height: calc(100vh - 140px);
+  }
+}
+
 /* ---------- Very small screens ---------- */
 @media (max-width: 360px) {
   .poke-grid {
