@@ -26,7 +26,9 @@ export default function HomePage() {
         error={error}
         hasMore={hasMore}
         onLoadMore={loadMore}
-        isFiltering={!!query.trim().length > 0}
+        // FIX: compute a real boolean instead of `!!x.length > 0` (which compares a
+        // boolean to 0 and only worked by coincidence).
+        isFiltering={query.trim().length > 0}
       />
     </div>
   );

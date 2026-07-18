@@ -57,12 +57,15 @@ export async function fetchPokemonByType(typeName){
       return response.json();
 }
 
-export async function extractPokemonIdFromUrl(url){
+// FIX: these helpers are synchronous string operations, so they must NOT be async.
+// Marking them async made them return Promises, which broke callers that used the
+// returned value directly (e.g. spriteUrl(id) used as an <img src>).
+export function extractPokemonIdFromUrl(url){
       const parts = url.split('/').filter(Boolean);
       return parts[parts.length - 1];
 }
 
-export async function spriteUrl(pokemonId){
+export function spriteUrl(pokemonId){
       return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 }
 

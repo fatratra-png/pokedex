@@ -3,7 +3,7 @@ import { fetchPokemonDetails, fetchPokemonSpecies } from "../api/pokeApi";
 
 export function usePokemonDetail(nameOrId) {
       const [pokemon, setPokemon] = useState(null);
-      const [description, setDescription] = useState(' ');
+      const [description, setDescription] = useState('');
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
 
@@ -34,7 +34,9 @@ export function usePokemonDetail(nameOrId) {
             return () => {
                   cancelled = true;
             };
-      }, [nameOrId, setDescription]);
+      // FIX: useState setters are stable, so they should not be in the dependency
+      // array. Depending on setDescription was harmless but incorrect/unnecessary.
+      }, [nameOrId]);
 
       return {pokemon,description,loading,error}
 }

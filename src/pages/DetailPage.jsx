@@ -12,7 +12,7 @@ export default function DetailPage() {
         &larr; Back to list
       </Link>
       {loading && <Loader />}
-      {error && <p>Error: {error}</p>}
+      {error && <p className="error-box">Error: {error}</p>}
       {pokemon && <PokemonDetail pokemon={pokemon} description={description} />}
     </div>;
 }

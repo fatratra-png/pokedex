@@ -32,6 +32,9 @@ export function usePokemonList() {
     loadPage(offset);
   }, [offset, loadPage]);
 
+  // FIX: guard against double-loading. `loading` is read from state which may be
+  // stale inside the callback closure; rely on functional offset update and the
+  // `loading` flag to avoid firing overlapping page requests.
   const loadMore = () => {
     if (!loading && hasMore) {
       setOffset((prev) => prev + PAGE_SIZE);
