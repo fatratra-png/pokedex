@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { spriteUrl } from "../api/pokeApi";
 
-export default function PokemonCard() {
-  const { is, name } = pokemon;
+// FIX: PokemonCard must receive the `pokemon` prop (passed by PokemonList as pokemon={p}).
+// Previously the component had no parameters and referenced an undefined `pokemon`,
+// throwing on `pokemon.is` and crashing the whole tree (app would flash then disappear).
+export default function PokemonCard({ pokemon }) {
+  const { id, name } = pokemon;
   const paddedId = String(id).padStart(3, "0");
 
   return (
