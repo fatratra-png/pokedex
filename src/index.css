@@ -25,6 +25,9 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  /* FIX: never allow horizontal scrolling/overflow on any device */
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -34,11 +37,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  /* FIX: use max() so padding never exceeds available width */
+  padding: clamp(12px, 4vw, 40px) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-left));
   padding: clamp(12px, 4vw, 40px) clamp(8px, 3vw, 24px);
 }
 
 #root {
   width: 100%;
+  max-width: 100%;
+  /* FIX: cap to viewport so nested 100% widths can't overflow */
+  min-width: 0;
   display: flex;
   justify-content: center;
 }
@@ -47,6 +55,8 @@ body {
 .device {
   width: 100%;
   max-width: 460px;
+  /* FIX: cap device to viewport (minus padding) so it never overflows small screens */
+  max-width: min(460px, 100%);
   /* FIX: allow the device to grow on large screens instead of staying tiny */
   min-width: 0;
   background: linear-gradient(160deg, var(--device-body) 0%, var(--device-body-dark) 100%);
@@ -144,6 +154,8 @@ body {
 .search-bar input {
   flex: 1 1 auto;
   min-width: 0;
+  /* FIX: prevent the input from forcing overflow with long text */
+  width: 100%;
   border: none;
   background: transparent;
   font-family: var(--font);
@@ -211,6 +223,8 @@ body {
   text-transform: capitalize;
   text-align: center;
   word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 /* ---------- Load more ---------- */
@@ -439,9 +453,21 @@ body {
 /* ---------- Larger screens ---------- */
 @media (min-width: 768px) {
   .device {
-    max-width: 640px;
+    /* FIX: cap to viewport even on big screens */
+    max-width: min(640px, 100%);
   }
   .poke-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+/* ---------- Very small screens ---------- */
+@media (max-width: 360px) {
+  .poke-grid {
+    /* FIX: keep at least 2 readable columns on tiny phones */
+    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  }
+  .device_top {
+    flex-wrap: wrap;
   }
 }
