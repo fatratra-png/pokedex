@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPokemonDetail, fetchPokemonSpecies } from "../api/pokeApi";
+import { fetchPokemonDetails, fetchPokemonSpecies } from "../api/pokeApi";
 
 export function usePokemonDetail(nameOrId) {
       const [pokemon, setPokemon] = useState(null);
@@ -17,7 +17,7 @@ export function usePokemonDetail(nameOrId) {
                   setPokemon(null);
                   try {
                         const [detail, desc] = await Promise.all([
-                              fetchPokemonDetail(nameOrId),
+                              fetchPokemonDetails(nameOrId),
                               fetchPokemonSpecies(nameOrId),
                         ]);
                         if (!cancelled) {
